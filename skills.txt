@@ -1,0 +1,37 @@
+Boutton modifier client:
+
+String did = di.getText();
+        String dname= dn.getText();
+        String dspec= ds.getText();
+         try{ Class.forName("com.mysql.jdbc.Driver");
+        Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/algobreizhvisite","root","");
+        
+        String sql = "update `clients` SET `DoctorName`='"+dname+"',`Specialization`='"+dspec+"'WHERE id='"+did+"'";
+        PreparedStatement ptstmt = conn.prepareStatement(sql);
+        ptstmt.execute();
+        
+             JOptionPane.showMessageDialog(null, "Les informations du client ont été modifiés!");
+        
+         }catch(Exception e){
+             JOptionPane.showMessageDialog(null, e);
+         }
+--------------------------------------------------------------------------------------------------
+
+Boutton supprimer un client : 
+try{ Class.forName("com.mysql.jdbc.Driver");
+                Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/algobreizhvisite","root","");
+                Statement st= conn.createStatement();
+                String sql="select * from clients";
+                PreparedStatement pstmt=conn.prepareStatement(sql);
+                ResultSet rs= pstmt.executeQuery();
+                DefaultTableModel tm=(DefaultTableModel)jTable1.getModel();
+                tm.setRowCount(0);
+                while(rs.next()){
+                Object o[]={rs.getInt("ID"),rs.getString("DOCTORNAME"),rs.getString("SPECIALIZATION")};
+                tm.addRow(o);
+                }
+
+
+                 }catch(Exception e){
+                     JOptionPane.showMessageDialog(null,e);
+                 }

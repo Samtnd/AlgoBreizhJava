@@ -1,0 +1,29 @@
+String un = user.getText();
+        //String p = pass.getPassword();
+        String p =String.valueOf(pass.getPassword());
+        try{ Class.forName("com.mysql.jdbc.Driver");
+        Connection conn= (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/algobreizhvisite?autoReconnect=true&useSSL=false","root","");
+        Statement st=(Statement) 
+        conn.createStatement();
+        String sql="SELECT * FROM `user_login`";
+
+        ResultSet rs= st.executeQuery(sql);
+        while(rs.next()){
+            String username=rs.getString("username");
+            String password=rs.getString("password");
+               
+            if(un.equals(username) && p.equals(password)){
+                new welcome().setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "L'identifiant ou le mot de passe est incorrect");
+            }
+            
+            user.setText("");pass.setText("");
+            user.requestFocus();
+           }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erreur de connection");
+    }
